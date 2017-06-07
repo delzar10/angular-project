@@ -1,0 +1,115 @@
+<h1>{{ title }}</h1>
+<div class="row">
+    <div class="col-md-6 well">
+    <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
+      <fieldset>
+        <legend>User</legend>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input  [(ngModel)]="user.name" #name="ngForm" ngControl="name" id="name" class="form-control" type="text">
+          <div
+              *ngIf="name.touched && name.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="name.errors.required">
+                Nombre es un campo necesario.
+            </div>
+            <div
+                *ngIf="name.errors.shouldBeUnique">
+                {{ name.errors.shouldBeUnique.error }}
+            </div>
+            <div
+                *ngIf="name.errors.cannotContainSpace">
+                {{name.errors.cannotContainSpace.error}}
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input [(ngModel)]="user.email" #email="ngForm" ngControl="email" id="email" class="form-control" type="text">
+          <div
+              *ngIf="email.touched && email.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="email.errors.required">
+                email es un campo necesario.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input [(ngModel)]="user.phone" #phone="ngForm" ngControl="phone" class="phone" class="form-control" type="text">
+          <div
+              *ngIf="phone.touched && phone.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="phone.errors.required">
+                phone es un campo necesario.
+            </div>
+            <div
+                *ngIf="phone.errors.minlength">
+                phone es un campo de {{ phone.errors.minlength.requiredLength }} digitos.
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <fieldset ngControlGroup="address">
+        <legend>Address</legend>
+        <div class="form-group">
+          <label for="street">Street</label>
+          <input [(ngModel)]="user.address.street" #street="ngForm" ngControl="street" id="street" class="form-control" type="text">
+          <div
+              *ngIf="street.touched && street.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="street.errors.required">
+                Street es un campo necesario.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="suite">Suite</label>
+          <input [(ngModel)]="user.address.suite" #suite="ngForm" ngControl="suite" id="suite" class="form-control" type="text">
+          <div
+              *ngIf="suite.touched && suite.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="suite.errors.required">
+                suite es un campo necesario.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="city">City</label>
+          <input  [(ngModel)]="user.address.city" #city="ngForm" ngControl="city" class="city" class="form-control" type="text">
+          <div
+              *ngIf="city.touched && city.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="city.errors.required">
+                city es un campo necesario.
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="zipcode">Zipcode</label>
+          <input [(ngModel)]="user.address.zipcode" #zipcode="ngForm" ngControl="zipcode" class="zipcode" class="form-control" type="text">
+          <div
+              *ngIf="zipcode.touched && zipcode.errors"
+              class="alert alert-danger">
+            <div
+                *ngIf="zipcode.errors.required">
+                zipcode es un campo necesario.
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div *ngIf="form.touched && form.errors">
+
+      </div>
+      <button [disabled]="!form.valid" type="submit" class="btn btn-primary">
+          Save
+      </button>
+    </form>
+    </div>
+</div>

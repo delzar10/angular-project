@@ -1,0 +1,32 @@
+<h1>Users</h1>
+<div *ngIf="isLoading">
+    <i class="fa fa-spinner fa-spin fa-3x"></i>
+</div>
+<div>
+    <a [routerLink]="['AddUser']">
+      <button class="btn btn-primary">Add User</button>
+      <i class="fa"></i>
+    </a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="#user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td><a [routeLink]="['EditUser', { id: user.id }]"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                <td><a><i class="fa fa-trash-o" aria-hidden="true"></i><a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

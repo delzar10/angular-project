@@ -1,0 +1,26 @@
+import {Component, OnInit} from 'angular2/core';
+import {UsersService} from '../services/users.service';
+import {Observable} from 'rxjs/Observable';
+import {HTTP_PROVIDERS} from 'angular2/http';
+import {ROUTER_DIRECTIVES} from 'angular2/router';
+
+@Component({
+    templateUrl: 'app/views/users.component.html',
+    directives: [ROUTER_DIRECTIVES],
+    providers: [UsersService, HTTP_PROVIDERS]
+})
+export class UsersComponent implements OnInit {
+    isLoading: boolean = true;
+    users: any[];
+
+    constructor(private _usersService: UsersService) {
+
+    }
+
+    ngOnInit() {
+       this._usersService.getUsers().subscribe(users => {
+            this.isLoading = false;
+            this.users = users;
+        });
+    }
+}
