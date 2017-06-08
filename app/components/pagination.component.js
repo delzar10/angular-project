@@ -20,6 +20,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         execute: function() {
             PaginationComponent = (function () {
                 function PaginationComponent() {
+                    this.items = [];
                     this.pageSize = 10;
                     this.pageChanged = new core_1.EventEmitter();
                 }
@@ -48,7 +49,7 @@ System.register(['angular2/core'], function(exports_1, context_1) {
                 };
                 __decorate([
                     core_1.Input(), 
-                    __metadata('design:type', Array)
+                    __metadata('design:type', Object)
                 ], PaginationComponent.prototype, "items", void 0);
                 __decorate([
                     core_1.Input('page-size'), 

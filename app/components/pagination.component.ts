@@ -25,7 +25,7 @@ import {OnChanges} from 'angular2/core';
 })
 export class PaginationComponent implements OnChanges {
     @Input()
-    items: any[];
+    items = [];
     @Input('page-size')
     pageSize = 10;
     @Output('page-changed')
@@ -33,10 +33,6 @@ export class PaginationComponent implements OnChanges {
 
     pages: any[];
     currentPage: any;
-
-    constructor() {
-
-    }
 
     ngOnChanges() {
       this.currentPage = 1;
