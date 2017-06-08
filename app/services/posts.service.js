@@ -25,10 +25,17 @@ System.register(['angular2/core', 'angular2/http', 'rxjs/add/operator/map'], fun
             PostsService = (function () {
                 function PostsService(_http) {
                     this._http = _http;
-                    this._url = "https://jsonplaceholder.typicode.com/users";
+                    this._url = "http://jsonplaceholder.typicode.com/posts";
                 }
-                PostsService.prototype.getPosts = function () {
-                    return this._http.get(this._url).map(function (result) { return result.json(); });
+                PostsService.prototype.getPosts = function (filter) {
+                    var url = this._url;
+                    if (filter && filter.userId)
+                        url += '?userId=' + filter.userId;
+                    return this._http.get(url).map(function (result) { return result.json(); });
+                };
+                PostsService.prototype.getComments = function (postId) {
+                    return this._http.get(this._url + "/" + postId + "/comments")
+                        .map(function (res) { return res.json(); });
                 };
                 PostsService = __decorate([
                     core_1.Injectable(), 

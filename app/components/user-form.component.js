@@ -49,6 +49,7 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                             ]), user_validators_1.UserValidators.shouldBeUnique],
                         email: ['', common_1.Validators.compose([
                                 common_1.Validators.required,
+                                user_validators_1.UserValidators.email,
                                 user_validators_1.UserValidators.cannotContainSpace
                             ]), user_validators_1.UserValidators.shouldBeUnique],
                         phone: ['', common_1.Validators.compose([
@@ -66,16 +67,12 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                     var _this = this;
                     var id = this._routeParams.get("id");
                     this.title = id ? "Edit User" : "New User";
-                    if (id) {
-                        this._userService.getUsers(id);
-                    }
-                    this._userService.getUsers(id).subscribe(function (user) {
-                        _this.user = user,
-                            function (response) {
-                                if (response.status == 404) {
-                                    _this._router.navigate(['NotFound']);
-                                }
-                            };
+                    if (id)
+                        this._userService.getUser(id);
+                    this._userService.getUser(id).subscribe(function (user) { return _this.user = user; }, function (response) {
+                        if (response.status == 404) {
+                            _this._router.navigate(['Other']);
+                        }
                     });
                 };
                 UserFormComponent.prototype.onSubmit = function () {
@@ -87,7 +84,17 @@ System.register(['angular2/core', 'angular2/common', 'angular2/router', '../serv
                 };
                 ;
                 UserFormComponent.prototype.save = function () {
-                    this._userService.addUser(this.form.value);
+                    var _this = this;
+                    var result;
+                    if (this.user.id)
+                        result = this._userService.updateUser(this.user);
+                    else
+                        result = this._userService.addUser(this.user);
+                    result.subscribe(function (x) {
+                        // Ideally, here we'd want:
+                        // this.form.markAsPristine();
+                        _this._router.navigate(['Users']);
+                    });
                 };
                 UserFormComponent = __decorate([
                     core_1.Component({

@@ -10,10 +10,11 @@ import {PostsComponent} from './posts.component';
 @RouteConfig([
     { path: '/',               name: 'Home' ,    component: HomeComponent, useAsDefault: true },
     { path: '/users',          name: 'Users',    component: UsersComponent },
-    { path: '/users/edit/:id', name: 'EditUser', component: UsersComponent },
+    { path: '/users/edit/:id', name: 'EditUser', component: UserFormComponent },
     { path: '/users/new',      name: 'AddUser',  component: UserFormComponent},
     { path: '/posts',          name: 'Posts',    component: PostsComponent },
     { path: '/*other',         name: 'Other',    redirectTo: ['Home'] }
+    // { path: '/*other',         name: 'NotFound',    redirectTo: ['Home'] }
 ])
 @Component({
     selector: 'app',

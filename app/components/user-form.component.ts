@@ -28,6 +28,7 @@ export class UserFormComponent implements CanDeactivate {
             ]), UserValidators.shouldBeUnique],
             email: ['', Validators.compose([
                 Validators.required,
+                UserValidators.email,
                 UserValidators.cannotContainSpace
             ]), UserValidators.shouldBeUnique],
             phone: ['', Validators.compose([
@@ -47,18 +48,16 @@ export class UserFormComponent implements CanDeactivate {
         var id = this._routeParams.get("id");
         this.title = id ? "Edit User" : "New User";
 
-        if (id){
-            this._userService.getUsers(id);
-        }
+        if (id)
+            this._userService.getUser(id);
 
-        this._userService.getUsers(id).subscribe(user => {
-            this.user = user,
+        this._userService.getUser(id).subscribe(
+            user => this.user = user,
             response => {
               if (response.status == 404) {
-                  this._router.navigate(['NotFound']);
+                  this._router.navigate(['Other']);
               }
-            }
-        })
+        });
     }
 
     onSubmit() {
@@ -73,6 +72,18 @@ export class UserFormComponent implements CanDeactivate {
     };
 
     save() {
-        this._userService.addUser(this.form.value)
+        var result;
+
+        if (this.user.id)
+          result = this._userService.updateUser(this.user)
+        else
+          result = this._userService.addUser(this.user);
+
+
+        result.subscribe(x => {
+          // Ideally, here we'd want:
+          // this.form.markAsPristine();
+          this._router.navigate(['Users']);
+        });
     }
 }

@@ -1,7 +1,7 @@
 <h1>{{ title }}</h1>
 <div class="row">
     <div class="col-md-6 well">
-    <form [ngFormModel]="form" (ngSubmit)="onSubmit()">
+    <form [ngFormModel]="form" (ngSubmit)="save()">
       <fieldset>
         <legend>User</legend>
         <div class="form-group">
@@ -33,6 +33,10 @@
             <div
                 *ngIf="email.errors.required">
                 email es un campo necesario.
+            </div>
+            <div
+                *ngIf="email.errors.email">
+                email Ingresado no tiene el formato correcto
             </div>
           </div>
         </div>
